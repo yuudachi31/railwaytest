@@ -22,7 +22,7 @@ def root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("app:app", port=5000, reload=True)
+    uvicorn.run("main:app", port=5000, reload=True)
 
 origins = [
     'http://127.0.0.1:3000',
