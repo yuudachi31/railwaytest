@@ -26,7 +26,7 @@ def get_product_by_category(category):
     category_list = []
     # time.sleep(1)
 
-    if category.upper() == 'all':
+    if category.upper() == 'ALL':
         return product_list
 
     for product in product_list:
