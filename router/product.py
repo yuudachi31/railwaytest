@@ -26,6 +26,9 @@ def get_product_by_category(category):
     category_list = []
     # time.sleep(1)
 
+    if category.upper() == 'all':
+        return product_list
+
     for product in product_list:
         if product['category'].upper() == category.upper():
             category_list.append(product)
