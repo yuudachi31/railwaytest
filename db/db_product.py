@@ -47,7 +47,10 @@ def create(db: Session, request: ProductRequestSchema):
 
 def get_all(db: Session):
     # time.sleep(10)
-    return db.query(DbProduct).all()
+    get_all = db.query(DbProduct).all()
+    print('get_all = ')
+    print(get_all)
+    return get_all
 
 
 def get_product_by_id(product_id: int, db: Session):
