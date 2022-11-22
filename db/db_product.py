@@ -3,7 +3,6 @@ from router.schemas import ProductRequestSchema
 from sqlalchemy import func
 from sqlalchemy.orm.session import Session
 from .products_feed import products
-import time
 from db.models import DbProduct
 
 
@@ -27,7 +26,7 @@ def db_feed(db: Session):
     return db.query(DbProduct).all()
 
 
-def create(db: Session, request: ProductRequestSchema) -> DbProduct:
+def create(db: Session, request: ProductRequestSchema):
     new_product = DbProduct(
         category=request.category,
         name=request.name,
@@ -46,12 +45,12 @@ def create(db: Session, request: ProductRequestSchema) -> DbProduct:
     return new_product
 
 
-def get_all(db: Session) -> list[DbProduct]:
+def get_all(db: Session):
     # time.sleep(10)
     return db.query(DbProduct).all()
 
 
-def get_product_by_id(product_id: int, db: Session) -> DbProduct:
+def get_product_by_id(product_id: int, db: Session):
     # time.sleep(10)
     product = db.query(DbProduct).filter(DbProduct.id == product_id).first()
     if not product:
@@ -60,7 +59,7 @@ def get_product_by_id(product_id: int, db: Session) -> DbProduct:
     return product
 
 
-def get_product_by_category(category: str, db: Session) -> list[DbProduct]:
+def get_product_by_category(category: str, db: Session):
     # time.sleep(2)
     product = db.query(DbProduct).filter(func.upper(DbProduct.category) == category.upper()).all()
     if not product:
