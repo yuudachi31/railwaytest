@@ -16,7 +16,7 @@ def db_feed(db: Session):
         description=product["description"],
         description_long=product["description_long"],
         currency=product["currency"],
-        countInStock=product["countInStock"],
+        count_in_stock=product["countInStock"],
         owner_id=product["owner_id"]
     ) for product in products]
     db.query(DbProduct).delete()
@@ -36,7 +36,7 @@ def create(db: Session, request: ProductRequestSchema):
         description=request.description,
         description_long=request.description_long,
         currency=request.currency,
-        countInStock=request.countInStock,
+        count_in_stock=request.countInStock,
         owner_id=request.owner_id
     )
     db.add(new_product)
