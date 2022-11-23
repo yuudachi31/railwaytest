@@ -3,7 +3,6 @@ from router.schemas import ProductRequestSchema
 from sqlalchemy import func
 from sqlalchemy.orm.session import Session
 from .products_feed import products
-import time
 from db.models import DbProduct
 
 
@@ -17,17 +16,17 @@ def db_feed(db: Session):
         description=product["description"],
         description_long=product["description_long"],
         currency=product["currency"],
-        count_in_stock=product["countInStock"],
+        countInStock=product["countInStock"],
         owner_id=product["owner_id"]
     ) for product in products]
-    # db.query(DbProduct).delete()
-    # db.commit()
+    db.query(DbProduct).delete()
+    db.commit()
     db.add_all(new_product_list)
     db.commit()
     return db.query(DbProduct).all()
 
 
-def create(db: Session, request: ProductRequestSchema) -> DbProduct:
+def create(db: Session, request: ProductRequestSchema):
     new_product = DbProduct(
         category=request.category,
         name=request.name,
@@ -37,7 +36,7 @@ def create(db: Session, request: ProductRequestSchema) -> DbProduct:
         description=request.description,
         description_long=request.description_long,
         currency=request.currency,
-        count_in_stock=request.countInStock,
+        countInStock=request.countInStock,
         owner_id=request.owner_id
     )
     db.add(new_product)
@@ -46,12 +45,12 @@ def create(db: Session, request: ProductRequestSchema) -> DbProduct:
     return new_product
 
 
-def get_all(db: Session) -> list[DbProduct]:
+def get_all(db: Session):
     # time.sleep(10)
     return db.query(DbProduct).all()
 
 
-def get_product_by_id(product_id: int, db: Session) -> DbProduct:
+def get_product_by_id(product_id: int, db: Session):
     # time.sleep(10)
     product = db.query(DbProduct).filter(DbProduct.id == product_id).first()
     if not product:
@@ -60,7 +59,7 @@ def get_product_by_id(product_id: int, db: Session) -> DbProduct:
     return product
 
 
-def get_product_by_category(category: str, db: Session) -> list[DbProduct]:
+def get_product_by_category(category: str, db: Session):
     # time.sleep(2)
     product = db.query(DbProduct).filter(func.upper(DbProduct.category) == category.upper()).all()
     if not product:

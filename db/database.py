@@ -3,15 +3,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./shopping-cart.db"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:8SipXLiJ3QdbwpHc73dW@containers-us-west-19.railway.app:7301/railway"
 
 # engine = create_engine(
 #     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 # ) 
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:LIya1qnzPzuyRS4MRjZD@containers-us-west-56.railway.app:6990/railway"
-
 engine = create_engine(SQLALCHEMY_DATABASE_URL) 
-
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
