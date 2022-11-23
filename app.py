@@ -1,8 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from router import product, user, authentication
+from db import models
+from db.database import engine
 
 app = FastAPI(
     title="Shopping Cart API",
@@ -18,15 +19,13 @@ app.include_router(product.router)
 app.include_router(user.router)
 
 
-@app.get("/")
-def root():
-    return {"title": 'HELLO'}
-
-
 if __name__ == "__main__":
-    uvicorn.run("app:app", port=5000, reload=True)
+    uvicorn.run("app:app", port= 5000, reload=True)
+
 
 origins = [
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
     'https://react4railway2022-production.up.railway.app',
 ]
 
@@ -37,3 +36,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=['*']
 )
+
+models.Base.metadata.create_all(engine)

@@ -105,7 +105,7 @@ def update(db: Session, request: UpdateProfileRequestSchema):
     }
 
 
-def get_all_users(db: Session):
+def get_all_users(db: Session) -> list[DbUser]:
     users = db.query(DbUser).all()
     if not users:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -113,7 +113,7 @@ def get_all_users(db: Session):
     return users
 
 
-def get_user_by_id(user_id: int, db: Session):
+def get_user_by_id(user_id: int, db: Session) -> DbUser:
     user = db.query(DbUser).filter(DbUser.id == user_id).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -121,7 +121,7 @@ def get_user_by_id(user_id: int, db: Session):
     return user
 
 
-def get_user_detail_by_id(user_id: int, db: Session):
+def get_user_detail_by_id(user_id: int, db: Session) -> DbUserDetail:
     user = db.query(DbUserDetail).filter(DbUserDetail.owner_id == user_id).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -129,7 +129,7 @@ def get_user_detail_by_id(user_id: int, db: Session):
     return user
 
 
-def get_user_by_email(user_email: str, db: Session):
+def get_user_by_email(user_email: str, db: Session) -> DbUser:
     user = db.query(DbUser).filter(func.upper(DbUser.email) == user_email.upper()).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -137,7 +137,7 @@ def get_user_by_email(user_email: str, db: Session):
     return user
 
 
-def get_user_by_username(user_name: str, db: Session):
+def get_user_by_username(user_name: str, db: Session) -> DbUser:
     user = db.query(DbUser).filter(func.upper(DbUser.username) == user_name.upper()).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

@@ -3,6 +3,7 @@ from router.schemas import ProductRequestSchema
 from sqlalchemy import func
 from sqlalchemy.orm.session import Session
 from .products_feed import products
+import time
 from db.models import DbProduct
 
 
@@ -19,14 +20,14 @@ def db_feed(db: Session):
         count_in_stock=product["countInStock"],
         owner_id=product["owner_id"]
     ) for product in products]
-    db.query(DbProduct).delete()
-    db.commit()
+    # db.query(DbProduct).delete()
+    # db.commit()
     db.add_all(new_product_list)
     db.commit()
     return db.query(DbProduct).all()
 
 
-def create(db: Session, request: ProductRequestSchema):
+def create(db: Session, request: ProductRequestSchema) -> DbProduct:
     new_product = DbProduct(
         category=request.category,
         name=request.name,
@@ -45,15 +46,12 @@ def create(db: Session, request: ProductRequestSchema):
     return new_product
 
 
-def get_all(db: Session):
+def get_all(db: Session) -> list[DbProduct]:
     # time.sleep(10)
-    get_all = db.query(DbProduct).all()
-    print('get_all = ')
-    print(get_all)
-    return get_all
+    return db.query(DbProduct).all()
 
 
-def get_product_by_id(product_id: int, db: Session):
+def get_product_by_id(product_id: int, db: Session) -> DbProduct:
     # time.sleep(10)
     product = db.query(DbProduct).filter(DbProduct.id == product_id).first()
     if not product:
@@ -62,7 +60,7 @@ def get_product_by_id(product_id: int, db: Session):
     return product
 
 
-def get_product_by_category(category: str, db: Session):
+def get_product_by_category(category: str, db: Session) -> list[DbProduct]:
     # time.sleep(2)
     product = db.query(DbProduct).filter(func.upper(DbProduct.category) == category.upper()).all()
     if not product:

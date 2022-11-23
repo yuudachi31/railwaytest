@@ -11,7 +11,7 @@ class ProductRequestSchema(BaseModel):
     description: str
     description_long: str
     currency: str
-    countInStock: int
+    count_in_stock: int
     owner_id: int
 
 

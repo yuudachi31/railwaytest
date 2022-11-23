@@ -15,7 +15,6 @@ alembic = "*"
 python-jose = "*"
 python-multipart = "*"
 numpy = "==1.21.4"
-psycopg2-binary = "*"
 
 [dev-packages]
 
