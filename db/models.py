@@ -15,7 +15,7 @@ class DbProduct(Base):
     description = Column(Text, nullable=False)
     description_long = Column(Text, nullable=True)
     currency = Column(Text)
-    count_in_stock = Column(Integer, nullable=False)
+    countInStock = Column(Integer, nullable=False)
     owner_id = Column(Integer, ForeignKey('user.id', deferrable=True))
     owner = relationship('DbUser', back_populates='created_products')
 
